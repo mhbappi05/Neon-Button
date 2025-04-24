@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Neon Border Toggle Switch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+            margin: 0;
+        }
+
+        .toggle-container {
+            position: relative;
+            width: 80px;
+            /* Increased width for neon effect */
+            height: 40px;
+            /* Increased height */
+            background-color: #333;
+            /* Dark background */
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            /* Subtle shadow */
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 32px;
+            height: 32px;
+            background-color: #555;
+            /* Darker slider */
+            border-radius: 50%;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            /* Subtle slider shadow */
+        }
+
+        .toggle-container.on {
+            /* Background color remains dark */
+            box-shadow: 0 0 10px #0f0;
+            /* Subtle overall glow when on */
+        }
+
+        .toggle-container.on .toggle-slider {
+            transform: translateX(40px);
+            /* Adjust based on width */
+            background-color: #444;
+            /* Slightly lighter slider when on */
+        }
+
+        .indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(255, 0, 0);
+            /* Initial green indicator */
+            border-radius: 50%;
+            box-shadow: 0 0 5px #0f0;
+            /* Neon green glow for indicator */
+        }
+
+        .toggle-container.on .indicator {
+            left: auto;
+            right: 10px;
+            background-color: #0f0;
+            /* Keep green when on */
+            box-shadow: 0 0 5px #0f0;
+            /* Keep neon green glow */
+        }
+
+        /* Neon border effect */
+        .toggle-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, transparent, rgb(255, 0, 0), transparent);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .toggle-container.on::before {
+            opacity: 1;
+            animation: neon-border 1.2s linear infinite;
+        }
+
+        @keyframes neon-border {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toggle-container">
+        <div class="indicator"></div>
+        <div class="toggle-slider"></div>
+    </div>
+
+    <script>
+        const toggleContainer = document.querySelector('.toggle-container');
+
+        toggleContainer.addEventListener('click', () => {
+            toggleContainer.classList.toggle('on');
+        });
+    </script>
+
+</body>
+
+</html>
